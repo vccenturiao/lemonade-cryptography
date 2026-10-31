@@ -1,4 +1,6 @@
+from . import exceptions as e
 from .node import Node
+
 
 class LinkedList:
     def __init__(self):
@@ -56,7 +58,7 @@ class LinkedList:
 
     def pop_first(self):
         if self.is_empty:
-            raise Exception("Linked list is empty.")
+            raise e.EmptyDataStructureError("Linked list is empty.")
 
         node = self._first
 
@@ -70,7 +72,7 @@ class LinkedList:
 
     def pop_last(self):
         if self.is_empty:
-            raise Exception("Linked list is empty.")
+            raise e.EmptyDataStructureError("Linked list is empty.")
 
         if self._first == self._last:
             return self.pop_first()

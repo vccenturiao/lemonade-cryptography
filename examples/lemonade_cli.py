@@ -1,5 +1,5 @@
-import os
 import ast
+import os
 
 import lemonade as l
 
@@ -19,11 +19,11 @@ def read_bytes(prompt):
         result = ast.literal_eval(value)
 
         if not isinstance(result, bytes):
-            raise ValueError
+            raise TypeError
 
         return result
 
-    except Exception:
+    except (ValueError, SyntaxError):
         print("\nInvalid bytes format.")
         return None
 

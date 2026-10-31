@@ -2,12 +2,8 @@ import os
 
 import pytest
 
-from lemonade.files import (
-    encrypt_to_file,
-    decrypt_from_file
-)
-
 from lemonade import exceptions as e
+from lemonade.files import decrypt_from_file, encrypt_to_file
 
 
 def get_generated_files(directory):

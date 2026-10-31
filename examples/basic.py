@@ -1,5 +1,4 @@
-from lemonade import encrypt, decrypt
-
+from lemonade import decrypt, encrypt
 
 message = b"Hello Lemonade!"
 

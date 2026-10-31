@@ -1,11 +1,11 @@
-import os
 import hashlib
+import os
 
+from . import constants as const
 from . import crypto as c
 from . import exceptions as e
-from . import utils as u
 from . import metadata as m
-from . import constants as const
+from . import utils as u
 
 
 def encrypt_to_file(filePath: str, lemonDirectory: str, sourkeyDirectory: str = "") -> None:
@@ -53,27 +53,24 @@ def encrypt_to_file(filePath: str, lemonDirectory: str, sourkeyDirectory: str = 
     sourkey_path = u._get_available_filename(sourkeyDirectory, "lemonade.sourkey")
     metadata = m.generate_metadata_bytes(filePath)
 
-    with open(filePath, "rb") as input_file:
-        with open(lemon_path, "wb") as lemon_file:
-            with open(sourkey_path, "wb") as sourkey_file:
+    with open(filePath, "rb") as input_file, open(lemon_path, "wb") as lemon_file, open(sourkey_path, "wb") as sourkey_file:
+            lemon_file.write(const.LEMON_MAGIC)
+            lemon_file.write(len(const.VERSION).to_bytes(2, "big"))
+            lemon_file.write(const.VERSION)
+            lemon_file.write(len(metadata).to_bytes(4, "big"))
+            lemon_file.write(metadata)
 
-                lemon_file.write(const.LEMON_MAGIC)
-                lemon_file.write(len(const.VERSION).to_bytes(2, "big"))
-                lemon_file.write(const.VERSION)
-                lemon_file.write(len(metadata).to_bytes(4, "big"))
-                lemon_file.write(metadata)
+            sourkey_file.write(const.SOURKEY_MAGIC)
+            
+            data_chunk = input_file.read(const.CHUNK_SIZE)
 
-                sourkey_file.write(const.SOURKEY_MAGIC)
-                
+            while data_chunk:
+                crypt_chunk, key_chunk = c.encrypt(data_chunk)
+
+                lemon_file.write(crypt_chunk)
+                sourkey_file.write(key_chunk)
+
                 data_chunk = input_file.read(const.CHUNK_SIZE)
-
-                while data_chunk:
-                    crypt_chunk, key_chunk = c.encrypt(data_chunk)
-
-                    lemon_file.write(crypt_chunk)
-                    sourkey_file.write(key_chunk)
-
-                    data_chunk = input_file.read(const.CHUNK_SIZE)
 
 
 def encrypt_with_sourkey_to_file(filePath: str, lemonDirectory: str, sourkeyFilePath: str) -> None:

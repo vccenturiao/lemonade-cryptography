@@ -1,4 +1,6 @@
+from . import exceptions as e
 from .linked_list import LinkedList
+
 
 class Queue(LinkedList):
     def enqueue(self, data) -> None:
@@ -6,18 +8,18 @@ class Queue(LinkedList):
 
     def dequeue(self):
         if self.is_empty:
-            raise Exception("Queue is empty.")
+            raise e.EmptyDataStructureError("Queue is empty.")
 
         return self.pop_first()
 
     def first(self):
         if self.is_empty:
-            raise Exception("Queue is empty.")
+            raise e.EmptyDataStructureError("Queue is empty.")
 
         return self._first.data
 
     def last(self):
         if self.is_empty:
-            raise Exception("Queue is empty.")
+            raise e.EmptyDataStructureError("Queue is empty.")
 
         return self._last.data

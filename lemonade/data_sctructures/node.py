@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 class Node:
     def __init__(self, data, next : Node = None):
         self._data = data

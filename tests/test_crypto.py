@@ -1,8 +1,8 @@
 import pytest
 
-from lemonade import encrypt, decrypt
-from lemonade.exceptions import InvalidKeyError
-from lemonade.exceptions import LemonadeError
+from lemonade import decrypt, encrypt
+from lemonade.exceptions import InvalidKeyError, LemonadeError
+
 
 def test_invalid_key():
     with pytest.raises(InvalidKeyError):

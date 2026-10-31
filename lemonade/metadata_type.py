@@ -1,5 +1,6 @@
 import enum
 
+
 class MetadataType(enum.Enum):
     FILENAME  = 1
     EXTENSION = 2

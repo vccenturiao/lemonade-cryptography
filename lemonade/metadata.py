@@ -1,10 +1,9 @@
 import os
 import struct
-
-from . import utils as u
-from . import constants as c
-
 from dataclasses import dataclass
+
+from . import constants as c
+from . import utils as u
 from .metadata_type import MetadataType
 
 

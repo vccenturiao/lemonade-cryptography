@@ -1,8 +1,8 @@
-import os
 import hashlib
+import os
 
-from .metadata_type import MetadataType
 from .metadata import MetadataField
+from .metadata_type import MetadataType
 
 
 def _calculate_sha256(data: bytes) -> bytes:

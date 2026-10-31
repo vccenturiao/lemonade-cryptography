@@ -2,6 +2,7 @@ import secrets
 
 from . import exceptions as e
 
+
 def encrypt(data_bytes: bytes) -> tuple[bytes, bytes]:
     """
     [DEPRECATED] Encrypts binary data using Lemonade Encryption.
