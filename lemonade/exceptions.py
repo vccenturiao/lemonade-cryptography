@@ -1,23 +1,34 @@
 class LemonadeError(Exception):
     pass
 
-class InvalidKeyError(LemonadeError):
+
+class IntegrityError(LemonadeError):
     pass
+
 
 class InvalidCipherError(LemonadeError):
     pass
 
-class InvalidPathError(LemonadeError):
+
+class InvalidKeyError(LemonadeError):
     pass
+
 
 class InvalidLemonFileError(LemonadeError):
     pass
 
+
+class InvalidMetadataError(LemonadeError):
+    pass
+
+
+class InvalidPathError(LemonadeError):
+    pass
+
+
 class InvalidSourkeyFileError(LemonadeError):
     pass
 
-class IntegrityError(LemonadeError):
-    pass
 
 class UnsupportedVersionError(LemonadeError):
     pass

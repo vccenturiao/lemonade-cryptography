@@ -2,7 +2,6 @@ import os
 import struct
 from dataclasses import dataclass
 
-from . import constants as c
 from . import utils as u
 from .metadata_type import MetadataType
 
@@ -16,7 +15,7 @@ class MetadataField:
         return self.identifier.value.to_bytes(1, "big") + len(self.data).to_bytes(4, "big") + self.data
 
 
-def generate_metadata_bytes(filePath: str) -> bytes:
+def generate_metadata_bytes(file_path: str) -> bytes:
     """
     Generates binary metadata from a file.
 
@@ -58,15 +57,12 @@ def generate_metadata_bytes(filePath: str) -> bytes:
             When the file path is invalid or inaccessible.
     """
 
-    filename = os.path.basename(filePath)
+    filename = os.path.basename(file_path)
     extension = os.path.splitext(filename)[1]
-    file_size = os.path.getsize(filePath)
-    timestamp = os.path.getmtime(filePath)
+    file_size = os.path.getsize(file_path)
+    timestamp = os.path.getmtime(file_path)
 
-    with open(filePath, "rb") as file:
-        data_bytes = file.read()
-
-    sha256 = u._calculate_sha256(data_bytes)
+    sha256 = u._calculate_file_sha256(file_path)
 
     filename_bytes = filename.encode("utf-8")
     extension_bytes = extension.encode("utf-8")

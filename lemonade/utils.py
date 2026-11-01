@@ -1,8 +1,23 @@
 import hashlib
 import os
 
+from . import constants as c
+
 from .metadata import MetadataField
 from .metadata_type import MetadataType
+
+
+def _calculate_file_sha256(file_path):
+    sha256 = hashlib.sha256()
+
+    with open(file_path, "rb") as file:
+        chunk = file.read(c.CHUNK_SIZE)
+
+        while chunk:
+            sha256.update(chunk)
+            chunk = file.read(c.CHUNK_SIZE)
+
+    return sha256.digest()
 
 
 def _calculate_sha256(data: bytes) -> bytes:
